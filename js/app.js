@@ -36,7 +36,6 @@ app.service('GetSpotifyData', function($http, SpinnerService) {
             if (type == "artist") {
                 params = { 'artistid': param1 };
             }
-            //console.log("params",params)
             return $http({
                 method: 'GET',
                 params: params,
@@ -62,7 +61,7 @@ app.service('GetAudioFeatures', function($http) {
 });
 
 
-/* Merging 2 objects and adding a static index number the objects */
+/* Merging 2 objects and adding a static index number the merged objects */
 app.service('MergeObjects', function() {
     return {
         merge: function(object1, object2) {
@@ -73,7 +72,6 @@ app.service('MergeObjects', function() {
                     extendedObjs.push(tempObj);
                 }
             }
-            //console.log("MergeService. The merged trackobject: ", extendedObjs);
             return extendedObjs;
         }
     };
@@ -175,7 +173,6 @@ app.directive('spotifyWrapper', function() {
             $scope.menu = function(page) {
                 angular.element('#showtop50,#showplaylists,#showsearch').removeClass('active');
                 angular.element('#' + page).addClass('active');
-                //console.log('Active tab', page);
             }
 
             /* Watching the when accesstoken runs out */
@@ -225,7 +222,6 @@ app.directive('playlistsBox', function() {
                 GetSpotifyData.getData("list", $scope.listid, $scope.userObj.id, offset).then(function(response) {
                     tracksObj = response.data.items;
                     $scope.playlistTotal = response.data.total;
-                    //console.log(response.data);
                     var trackids = "";
                     var tracksObjNew = [];
                     angular.forEach(tracksObj, function(value, key) {
@@ -239,7 +235,6 @@ app.directive('playlistsBox', function() {
                         SpinnerService.closeSpinner();
                         angular.element('#playlistNav li').removeClass('active'); // removing active class from playlistmenu						
                         angular.element('#' + $scope.listid).addClass('active'); //active class on clicked playlist
-                        //console.log('$scope.tracks: ', $scope.tracks);
                     }, function errorCallback(response) {
                         console.log("Error", response);
                     });
@@ -284,7 +279,6 @@ app.directive('top50Box', function() {
 
             /* Getting all table data for top50 tables */
             $scope.callGetSpotifyData = function(type, range) {
-                //SpinnerService.setSpinner();
                 $scope.top50type = type;
                 if (range) {
                     $scope.range = range;
@@ -300,7 +294,6 @@ app.directive('top50Box', function() {
                             trackids = trackids + value.id + ',';
                         });
                         GetAudioFeatures.getData(trackids).then(function(response) {
-                            //console.log("Succes AudioFeatures: response.data: ", response.data.audio_features);	
                             auFeatObj = response.data.audio_features;
                             $scope.tracks = MergeObjects.merge(tracksObj, auFeatObj); //Sending objects to extend service to get toptraks merged		
                             SpinnerService.closeSpinner();
@@ -312,10 +305,8 @@ app.directive('top50Box', function() {
                         $scope.topartists = [];
                         angular.forEach(topartistsRaw, function(value, key) {
                             var tempObj = angular.extend({}, value, { staticIndex: key }); // extending the tracks objects with a static indexnumber
-                            $scope.topartists.push(tempObj); // Artist objects ready to use in template
-                            //console.log("tracksObjTemp ", tracksObjTemp)					
+                            $scope.topartists.push(tempObj); // Artist objects ready to use in template					
                         });
-                        //console.log('$scope.topartists',$scope.topartists);
                         SpinnerService.closeSpinner();
                     }
                 }, function errorCallback(response) {
@@ -349,7 +340,7 @@ app.directive('searchBox', function() {
         controller: function($scope, GetSpotifyData, GetAudioFeatures, MergeObjects, SortData, SpinnerService) {
             /* Getting search result */
             $scope.callGetSpotifyData = function(query, offset) {
-                if (typeof offset == "undefined" || offset > -1) { //checking if offset is NOT negative
+                if (typeof offset == "undefined" || offset > -1) { //checking if offset is NOT negative to prevent negative paging
                     $scope.offset = offset;
                     GetSpotifyData.getData("search", query, offset).then(function(response) {
                         $scope.searchObj = response.data.tracks;
@@ -362,7 +353,6 @@ app.directive('searchBox', function() {
                         GetAudioFeatures.getData(trackids).then(function(response) {
                             auFeatObj = response.data.audio_features;
                             $scope.tracks = MergeObjects.merge(tracksObj, auFeatObj); //Sending objects to extend service to get toptraks merged
-                            //console.log("$scope.tracks", $scope.tracks);
                             SpinnerService.closeSpinner();
                         }, function errorCallback(response) {
                             console.log("Error", response);
@@ -422,7 +412,6 @@ app.directive('smoothScroll', function() {
 
 /* Filter to translate integer to musical key */
 app.filter('keyFilter', function() {
-    // In the return function, we must pass in a single parameter which will be the data we will work on.
     return function(keyInt) {
         var keyArray = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "G♯", "A", "B♭", "B"];
         var output = keyArray[keyInt];
@@ -432,7 +421,6 @@ app.filter('keyFilter', function() {
 
 /* Filter to make time range human readable */
 app.filter('rangeFilter', function() {
-    // In the return function, we must pass in a single parameter which will be the data we will work on.
     return function(range) {
         var translation;
         if (range == "short_term") {
