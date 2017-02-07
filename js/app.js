@@ -61,7 +61,7 @@ app.service('GetAudioFeatures', function($http) {
 });
 
 
-/* Merging 2 objects and adding a static index number the merged objects */
+/* Merging 2 objects and adding a static index number to the merged objects */
 app.service('MergeObjects', function() {
     return {
         merge: function(object1, object2) {
