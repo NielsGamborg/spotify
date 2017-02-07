@@ -19,7 +19,7 @@ app.config(['$routeProvider', function($routeprovider) {
         });
 }]);
 
-
+/* Getting data from Spotify */
 app.service('GetSpotifyData', function($http, SpinnerService) {
     return {
         getData: function(type, param1, param2, param3) {
