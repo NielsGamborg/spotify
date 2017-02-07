@@ -1,0 +1,39 @@
+<div id="content">
+
+    <div id="searchContainer">
+        <form ng-submit="callGetSpotifyData(query)">
+            <input name="query" ng-model="query" id="query" placeholder="Search Spotify" type="text">
+            <input value="Search" id="searchButton" type="submit">
+        </form>
+
+    </div>
+
+    <!-- Showing result if any -->
+    <div ng-if="tracks.length > 0">
+
+        <div class="searhResPaging" id="searhResPagingTop">
+            <span ng-if="totalResults > 20">
+                <button ng-click="callGetSpotifyData(query,searchObj.offset - 20)" ng-class="{inactive:searchObj.offset == 0}" class="prevButn">Previously</button>
+                <button ng-click="callGetSpotifyData(query,searchObj.offset + 20 )" ng-class="{inactive:totalResults < searchObj.offset+20}" ng-if="totalResults > searchObj.offset + 20" class="nexButn">Next</button>
+            </span>
+            <span ng-if="tracks"> Showing {{searchObj.offset}} - {{searchObj.offset + 20}} of {{searchObj.total}} results</span>
+        </div>
+
+
+
+        <!-- Getting track table HTML -->
+        <div ng-include="'js/trackstable.html'"></div>
+
+
+        <div ng-if="totalResults > 20" class="searhResPaging" id="searhResPagingBottom">
+            <button ng-click="callGetSpotifyData(query,searchObj.offset - 20)" ng-class="{inactive:searchObj.offset == 0}" class="prevButn">Previously</button>
+            <button ng-click="callGetSpotifyData(query,searchObj.offset + 20 )" ng-class="{inactive:totalResults < searchObj.offset+20}" ng-if="totalResults > searchObj.offset + 20" class="nexButn">Next</button>
+        </div>
+    </div>
+
+    <div ng-if="tracks.length == 0">
+        <p>Your search for "<strong>{{query}}</strong>" gave <strong>0</strong> hits.</p>
+    </div>
+
+
+</div>

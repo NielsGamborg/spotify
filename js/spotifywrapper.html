@@ -1,0 +1,159 @@
+<div>
+    <a href="" smooth-scroll data-scrollTarget="#faq" data-scrollText="View Spotifys data definitions" class="faqLink"></a>
+</div>
+
+<div class="tabs" id="tabs">
+    <ul>
+        <!--<li><a id="showTracks">Mine Top 50 Tracks</a></li>-->
+        <li><a href="#top50" ng-click="menu('showtop50')" id="showtop50">My Top 50 Tracks and Artists</a></li>
+        <li><a href="#playlists" ng-click="menu('showplaylists')" id="showplaylists">My Playlists</a></li>
+        <li><a href="#search" ng-click="menu('showsearch')" id="showsearch">Search</a></li>
+    </ul>
+</div>
+
+
+<div ng-view></div>
+
+
+<div ng-include="'js/faq.html'"></div>
+
+
+<div id="trackModal" class="dataModal">
+    <div class="hidePopUp" ng-click="closeModal()">×</div>
+    <h2>{{ track.name }}</h2>
+    <h3>Album: {{ track.album.name }}</h3>
+    <div class="mainColumn">
+        <img src="{{ track.album.images[1].url }}" alt="Album Cover" />
+        <h3>
+            <span ng-repeat="artist in track.artists">{{ artist.name }}<span ng-if="!$last">,</span>
+            </span>
+        </h3>
+        <p>
+            <a href="https://open.spotify.com/track/{{ track.id }}" class="playbtn" target="_blank">Play on Spotify</a>
+        </p>
+    </div>
+
+    <table class="audioFeatures">
+        <tbody>
+            <tr>
+                <td class="tdhead" colspan="2">Track data</td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td>{{ track.duration_ms | date :'m:ss' }}</td>
+            </tr>
+            </tr>
+            <tr>
+                <td>Popularity</td>
+                <td>{{ track.popularity }}%</td>
+            </tr>
+            <tr>
+                <td>Tempo (bpm)</td>
+                <td>{{ track.tempo | number:0}}</td>
+            </tr>
+            <tr>
+                <td>Key</td>
+                <td>{{ track.key | keyFilter }}</td>
+            </tr>
+            <tr>
+                <td>Time signature</td>
+                <td>{{ track.time_signature + "/4"}}</td>
+            </tr>
+            <tr>
+                <!--  "   -->
+                <td ng-if="track.explicit == true">Foul language</td>
+                <td ng-if="track.explicit == false">Explicit</td>
+                <td>{{ track.explicit?'Hell Yeah!':'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="audioFeatures">
+        <tbody>
+            <tr>
+                <td class="tdhead" colspan="2">Spotify audio features</td>
+            </tr>
+            <tr>
+                <td>Energy</td>
+                <td>{{ track.energy * 100 | number:0}}%</td>
+            </tr>
+            <tr>
+                <td>Valence</td>
+                <td>{{ track.valence * 100 | number:0 }}%</td>
+            </tr>
+            <tr>
+                <td>Danceability</td>
+                <td>{{ track.danceability * 100 | number:0}}%</td>
+            </tr>
+            <tr>
+                <td>Instrumentalness</td>
+                <td> {{ track.instrumentalness * 100 | number:0}}%</td>
+            </tr>
+            <tr>
+                <td>Acousticness</td>
+                <td>{{ track.acousticness * 100 | number:0}}%</td>
+            </tr>
+            <tr>
+                <td>Speechiness</td>
+                <td>{{ track.speechiness * 100 | number:0}}%</td>
+            </tr>
+            <tr>
+                <td>Liveness</td>
+                <td>{{ track.liveness * 100 | number:0}}%</td>
+            </tr>
+            <tr>
+                <td>Loudness </td>
+                <td>{{ track.loudness }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+<div id="artistModal" class="dataModal">
+    <div class="hidePopUp" ng-click="closeModal()">×</div>
+    <h2>{{ artistsdata.name }}</h2>
+
+    <div class="image"><img src="{{ artistsdata.images[1].url}} " alt="artist photo" /></div>
+
+    <table ng-class="{'show' : toggleData}">
+        <thead>
+            <tr>
+                <th colspan="2">{{ artist.name }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Popularity</td>
+                <td>{{ artistsdata.popularity }}%</td>
+            </tr>
+            <tr>
+                <td>Followers</td>
+                <td>{{ artistsdata.followers.total | number : fractionSize }}</td>
+            </tr>
+            <tr>
+                <td>Genres</td>
+                <td><span class="genreTag" ng-repeat="genre in artistsdata.genres">{{ genre }}<span ng-if="!$last">,</span></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Spotify link</td>
+                <td><a href="{{ artistsdata.external_urls.spotify }}">{{ artistsdata.name }}</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div id="loginModal" class="dataModal">
+    <p>Your 1 hour Spotify login ticket has expired!</p>
+    <p><a href="" onclick="location.reload()">Reload page</a> and press the login button to continue</p>
+    <p>or <a href="?logout=true">log out</a> to leave... thank you for visiting :-)</p>
+</div>
+
+<div id="spinner">
+    <div class="closeSpinner" onclick="$('#spinner,#overlay').hide()">&times;</div>
+    <div id="spinnerText">Loading...</div>
+</div>
+<div id="overlay" ng-click="closeModal()"></div>

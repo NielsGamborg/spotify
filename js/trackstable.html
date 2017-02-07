@@ -1,0 +1,32 @@
+<table>
+    <thead>
+        <th class="narrow" ng-click="callSortBy('staticIndex' )">No</th>
+        <th ng-click="callSortBy('name')">Track</th>
+        <th ng-click="callSortBy('artists[0].name')">Artists</th>
+        <th class="narrow" ng-click="callSortBy('duration_ms')">Duration</th>
+        <th class="narrow" ng-click="callSortBy('popularity')">Popularity</th>
+        <th class="narrow" ng-click="callSortBy('tempo')">Tempo</th>
+        <th class="narrow" ng-click="callSortBy('key')">Tone</th>
+        <th class="narrow" ng-click="callSortBy('energy')">Energy</th>
+        <th class="narrow" ng-click="callSortBy('valence')">Valence</th>
+        <th class="narrow" ng-click="callSortBy('danceability')">Dance</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in tracks | orderBy:propertyName:reverse">
+            <td>{{ item.staticIndex + 1 + offset }}</td>
+            <td><a ng-click="showTrackData({trackid : item.id, tracks : tracks})" href="">{{ item.name }}</a></td>
+            <td>
+                <span ng-repeat="artist in item.artists">
+					<a ng-click="callGetArtistData({artistid : artist.id})" class="nobreak" href="">{{ artist.name }}<span ng-if="!$last">,</span></a>
+                </span>
+            </td>
+            <td>{{ item.duration_ms | date :'m:ss' }}</td>
+            <td>{{ item.popularity }}%</td>
+            <td>{{ item.tempo | number:0}}</td>
+            <td>{{ item.key | keyFilter }}<span ng-if="item.mode == 0">m</span></td>
+            <td>{{ item.energy * 100 | number:0}}%</td>
+            <td>{{ item.valence * 100 | number:0 }}%</td>
+            <td>{{ item.danceability * 100 | number:0}}%</td>
+        </tr>
+    </tbody>
+</table>

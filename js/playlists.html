@@ -1,0 +1,24 @@
+<div id="content">
+    <div id="playlistNav">
+        <ul>
+            <li ng-click="callGetSpotifyData(0,playlistNew.id, playlistNew.name)" id="{{playlistNew.id}}" ng-repeat="playlistNew in userLists">{{ playlistNew.name }}</li>
+        </ul>
+    </div>
+
+    <!-- Showing playlist -->
+    <div id="playlistPaging" ng-if="playlistTotal > 100">
+        <div ng-click="callGetSpotifyData(($index)*100)" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10] | limitTo:((playlistTotal + 100)/100)" class="pageLink" ng-class="{active: $index == selected}">{{ $index + 1 }}</div>
+    </div>
+    <h2 ng-if="playlistTotal" id="playlisth2">{{ playlistName }} <span class="fontweightNormal">({{playlistTotal}} tracks)</span></h2>
+
+    <!-- If users playlists are NOT made public -->
+    <div ng-if="userLists.length == 0">
+        <h2>To view your playlists you need to make them public</h2>
+        <br>
+        <p>Open your Spotify app on your favorite device, and make your playlists public from there.</p>
+    </div>
+
+    <!-- Getting the tracks table -->
+    <div ng-if="tracks" ng-include="'js/trackstable.html'"></div>
+
+</div>

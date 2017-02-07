@@ -1,0 +1,40 @@
+<div id="content">
+    <form id="timerangeForm" action="/spotify/index.php" method="get" style="display: block;">
+        <label>
+			<input ng-model="top50type" ng-click="callGetSpotifyData('toptracks',range)" value="toptracks"type="radio"/>Tracks
+		</label>
+        <label>
+			<input ng-model="top50type" ng-click="callGetSpotifyData('topartists',range)" value="topartists "type="radio"/>Artists
+		</label>
+        <select class="timerangeSelect" ng-change="callGetSpotifyData(top50type,range)" ng-model="range" name="timerange">
+			<option value="short_term">Last 4 weeks</option>
+			<option value="medium_term">Last 6 months</option>
+			<option  value="long_term">Last couple of years</option>
+		</select>
+    </form>
+
+    <h2>Top 50 {{top50type.substring(3)}} {{ range | rangeFilter }}</h2>
+
+    <table ng-if="top50type == 'topartists'">
+        <thead>
+            <th ng-click="callSortBy('staticIndex')">No</th>
+            <th ng-click="callSortBy('name')">Artist</th>
+            <th ng-click="callSortBy('followers.total')">Followers</th>
+            <th ng-click="callSortBy('popularity')">Popularity</th>
+            <th ng-click="callSortBy('genres')">Genres</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in topartists | orderBy:propertyName:reverse">
+                <td>{{ item.staticIndex + 1 }}</td>
+                <td class='artistName' ng-click="callGetArtistData({artistid : item.id})"><a>{{ item.name }}</a></td>
+                <td>{{ item.followers.total }}</td>
+                <td>{{ item.popularity }}</td>
+                <td class="genreColumn"><span ng-repeat="item in item.genres" class="genreTag">{{ item }}<span ng-if="!$last">,</span></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Including tracks table html -->
+    <div ng-if="top50type == 'toptracks'" ng-include="'js/trackstable.html'"></div>
+</div>

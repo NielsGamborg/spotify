@@ -1,0 +1,14 @@
+user-agent: *
+disallow: /test
+disallow: /boxtest
+disallow: /refind
+disallow: /links
+disallow: /kun1side
+disallow: /hoejbjerg_petanque
+disallow: /festivalportalen
+disallow: /gejrfuglen
+disallow: /slutsiden
+disallow: /skorsten
+disallow: http://www.nielsgamborg.dk/wordpress/gestaltlovene/
+disallow: http://nielsgamborg.dk/wordpress/gestaltlovene/
+

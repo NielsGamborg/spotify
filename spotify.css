@@ -1,0 +1,799 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #112211;
+    color: #222222;
+    font-family: arial, helvetica, sans-serif;
+    margin: 0;
+}
+
+#wrapper {
+    background-color: white;
+    margin: 0 auto 0;
+    overflow: hidden;
+    padding: 2em 20px 0;
+    max-width: 1200px;
+}
+
+#header {
+    background-color: #004011;
+    /*background: linear-gradient(to right, #015d19, #028927 , #007920, #015d19); */
+    /*background: linear-gradient(to right, #002960, #093388, #224488, #093388, #002960, #002960); */
+    border-bottom: 1px solid #002200;
+}
+
+.center {
+    margin: 0 auto 0;
+    padding: 0 20px;
+    max-width: 1200px;
+}
+
+h1 {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+    padding: .4em 0 .3em;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 0 0 .4em;
+}
+
+h3 {
+    font-size: 18px;
+    margin: 0 0 .4em;
+}
+
+p,
+ul,
+form {
+    margin: .5em 0 1em;
+}
+
+a {
+    color: #2244AA;
+}
+
+#content {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    clear: both;
+    overflow-x: auto;
+    padding: 1em 0;
+    position: relative;
+    top: -1px;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+#content tr {
+    background: white;
+}
+
+#content table a {
+    color: #003399;
+    /*#00904a;*/
+    cursor: pointer;
+    padding: 5px 3px;
+    text-decoration: underline;
+}
+
+#content table a:hover {
+    color: #002255/*#004400;*/
+}
+
+#content tr:nth-child(even) {
+    background: #ecf3f3;
+    /*#f3f6f6;*/
+}
+
+#content table {
+    border: 1px solid #ccc;
+    margin-bottom: 2em;
+    width: 100%;
+}
+
+#content th {
+    background: #006622;
+    border: 1px solid #004400;
+    color: white;
+    cursor: pointer;
+    font-weight: normal;
+    text-align: left;
+}
+
+#content th,
+#content td {
+    padding: .3em .5em;
+}
+
+#content th.narrow {
+    padding: .3em .25em .3em .25em;
+}
+
+#content td {
+    border-right: 1px solid #eee;
+}
+
+#content .genreColumn {
+    max-width: 250px;
+}
+
+select,
+option,
+input {
+    font-size: 16px;
+    padding: .15em .3em;
+}
+
+form#timerangeForm {
+    float: right;
+    margin: 0 0 .5em 1em;
+}
+
+#timerangeForm select {
+    border: 1px solid #ccc;
+    padding: 0 .3em;
+}
+
+#timerangeForm label {
+    font-size: 18px;
+    margin-right: 1.5em;
+}
+
+#timerangeForm input {
+    margin: .3em;
+}
+
+.rightFloat {
+    float: right;
+}
+
+.discreet {
+    color: #999999;
+}
+
+.fontweightNormal {
+    font-weight: normal;
+}
+
+.nobreak {
+    white-space: nowrap;
+}
+
+.alert a,
+.alert {
+    background: #ffffaa;
+    border-radius: 2px;
+    color: black;
+    text-decoration: none;
+    padding: .2em .5em;
+    display: inline-block;
+}
+
+pre .alert a {
+    background: transparent;
+}
+
+#spinner {
+    background: white url("./gfx/spinner.gif") no-repeat 50% 30%;
+    border: 1px solid #999;
+    border-radius: 5px;
+    display: none;
+    height: 210px;
+    left: 50%;
+    margin-left: -150px;
+    position: fixed;
+    text-align: center;
+    top: 20%;
+    width: 300px;
+    z-index: 200;
+}
+
+.closeSpinner {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    cursor: pointer;
+    color: #888;
+    float: right;
+    font-size: 18px;
+    margin: 3px;
+    padding: .1em .4em;
+}
+
+.closeSpinner:hover {
+    background: #eee;
+    border: 1px solid #999;
+}
+
+#spinnerText {
+    font-size: 20px;
+    margin-top: 174px;
+}
+
+#overlay {
+    background: black;
+    display: none;
+    opacity: .8;
+    position: fixed;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 100;
+}
+
+
+/*--------------------------- USER -------------------*/
+
+.user {
+    color: #ddd;
+    font-size: 80%;
+    float: right;
+    margin: 5px 0 0;
+}
+
+.userName {
+    padding-top: 5px;
+}
+
+.userName.logout {
+    background: transparent url("./gfx/spotify21.png") no-repeat 0 8px;
+    cursor: pointer;
+    min-height: 25px;
+    padding-top: 10px;
+    position: relative;
+    text-indent: 2.5em;
+}
+
+.arrow {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid white;
+    display: inline-block;
+    height: 0;
+    margin-left: 0.3em;
+    vertical-align: middle;
+    width: 0;
+}
+
+.logoutLink {
+    background: white;
+    border: 1px solid #ccc;
+    display: none;
+    margin: 10px 0 0;
+    padding: 0.5em 1em .5em 0;
+    position: absolute;
+    width: 100px;
+}
+
+a.loginBtn,
+.userName.loggedOut a {
+    background: #2ebd59;
+    border-radius: 25px;
+    color: white;
+    display: inline-block;
+    font-size: 14px;
+    padding: 0.4em 1.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.user .loggedOut a:hover,
+a.loginBtn:hover {
+    background: #1ed760;
+    transform: scale(1.03);
+}
+
+
+/* Login Page */
+
+a.loginBtn {
+    background: #2ebd59;
+    border-radius: 25px;
+    color: white;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1em 0 2em;
+    padding: 0.4em 1.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#column1 {
+    float: left;
+    margin-right: 2%;
+    width: 53%;
+}
+
+#column2 {
+    float: left;
+    width: 45%;
+}
+
+.loginPage {
+    clear: both;
+    float: left;
+    line-height: 1.5em;
+    margin: 1em 0 0;
+    padding: 1em 0;
+    width: 100%;
+}
+
+.loginPage ul {
+    padding-left: 2em;
+}
+
+.loginPage img {
+    max-width: 100%;
+}
+
+#loginBox,
+.whatsApp {
+    background: #f3f6f6;
+    margin-bottom: 2em;
+    padding: 1em;
+}
+
+figure {
+    margin-bottom: 2em;
+}
+
+figcaption {
+    font-family: arial, helvetica, sans-serif;
+    font-size: 14px;
+}
+
+#loginReminder {
+    background: #ffffaa;
+    border: 1px solid #ddd;
+    clear: both;
+    float: left;
+    margin: 1em 0 -0.5em;
+    padding: 1em;
+    width: auto;
+    z-index: 500;
+}
+
+.hideReminder {
+    color: #666;
+    cursor: pointer;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    margin: -0.9em -0.9em 0.3em 0.6em;
+    padding: .1em .4em;
+}
+
+
+/*---------------------- TABS --------------------*/
+
+.tabs ul {
+    list-style-type: none;
+    margin: 0;
+}
+
+.tabs li {
+    float: left;
+    margin-right: .5em;
+}
+
+.tabs li a {
+    background: #ddd;
+    border: 1px solid #bbb;
+    border-radius: 3px 3px 0 0;
+    color: #222222;
+    cursor: pointer;
+    display: block;
+    margin-top: .2em;
+    padding: .3em 1em .4em;
+    position: relative;
+    text-decoration: none;
+    z-index: 25;
+}
+
+.tabs li a.active {
+    background: white;
+    border-bottom: 1px solid white;
+}
+
+
+/*--------------------- PLAYLISTS --------------------------*/
+
+.playlists {
+    clear: both;
+    padding-top: 2em;
+}
+
+#playlistNav,
+#playlistNav ul {
+    margin: 0 0 1em;
+}
+
+#playlistNav li {
+    background: #eee;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    list-style-type: none;
+    margin: .2em 10px 0 0;
+    padding: .2em .4em;
+}
+
+#playlistNav li.active {
+    background: #555;
+    border-color: #444;
+    color: white;
+}
+
+#playlisth2,
+.toptracksh2 {
+    float: left;
+    margin-right: .5em;
+}
+
+#playlistPaging {
+    float: right;
+    margin-bottom: 0.5em;
+}
+
+.showHideStats {
+    color: #000099;
+    cursor: pointer;
+    font-size: 14px;
+    float: left;
+    margin-top: 8px;
+    text-decoration: underline;
+}
+
+.showHideStats>span:last-child {
+    display: none;
+}
+
+.pageLink {
+    background: #eee;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: .3em;
+    padding: .3em .7em;
+}
+
+.pageLink.active,
+.pageLink.active:hover {
+    background: white;
+    border: 1px solid #ccc;
+    cursor: default;
+}
+
+.pageLink:hover {
+    background: #bbb;
+}
+
+
+/*---------------------------- SEARCH  --------------------------------*/
+
+#searchContainer {
+    float: left;
+    width: 100%;
+    margin: .5em 0 2em;
+}
+
+#searchContainer #query {
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 40px;
+    margin-right: .5em;
+    padding: .3em .5em;
+    width: 400px;
+}
+
+#searchButton {
+    background: #006622;
+    /*#1ba143; /*#0a884d linear-gradient(#229649,#00794a);*/
+    border: 1px solid #006622;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    height: 40px;
+    padding: .3em 1em;
+    vertical-align: top;
+    text-transform: uppercase;
+}
+
+#searchButton:hover {
+    background: #004411;
+    /*#016b39 /*#006438 linear-gradient(#016b39,#004b28); */
+}
+
+#searhResPagingTop {
+    margin-bottom: .4em;
+}
+
+#searhResPagingBottom {
+    margin-top: -1.3em;
+    position: relative;
+    /* to avoid it's getting benath the tables padding-bottom because of the negative margin*/
+}
+
+.searhResPaging button {
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: .5em;
+    padding: 0.3em 0.7em;
+}
+
+.searhResPaging button:hover {
+    background: #ccc;
+    border: 1px solid #999;
+}
+
+.searhResPaging button.inactive,
+.searhResPaging button:hover.inactive {
+    background: #eee;
+    border: 1px solid #ccc;
+    cursor: default;
+    opacity: .4;
+}
+
+#nohits {
+    margin: 4em 0 4em;
+}
+
+.hidePopUp {
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    font-size: 36px;
+    font-weight: bold;
+    margin: -1em -.7em;
+    padding: .2em;
+}
+
+
+/*--------------------- FAQ  ---------------------*/
+
+#faq {
+    clear: both;
+    padding-top: 1em;
+    overflow: hidden;
+}
+
+.faqLink {
+    font-size: 14px;
+    display: block;
+    float: right;
+    margin-top: -1.4em;
+    padding: .4em 0;
+}
+
+#faq .backTopLink {
+    float: right;
+    margin: 1em 0 0;
+}
+
+.column {
+    float: left;
+    min-width: 200px;
+    width: 49%;
+}
+
+.column1 {
+    margin-right: 2%;
+}
+
+.question {
+    background: #f3f6f6;
+    line-height: 1.5em;
+    margin-bottom: 2em;
+    padding: 1em;
+    min-width: 150px;
+}
+
+.column1 .question:nth-child(even) {
+    background: #e6f1ff;
+}
+
+.column2 .question:nth-child(odd) {
+    background: #e6f1ff;
+}
+
+.backTopLink {
+    clear: both;
+    color: #2255cc;
+    display: block;
+}
+
+.backTopLink:hover {
+    color: #000066;
+}
+
+#footer {
+    clear: both;
+    margin-top: 2em;
+}
+
+#showDump {
+    color: #999999;
+    float: right;
+    font-size: 10px;
+}
+
+.genreTag {
+    display: inline-block;
+    padding: 2px 10px 2px 0;
+}
+
+
+/*  Track and Artist Modal */
+
+.dataModal {
+    background: black;
+    border-radius: 5px;
+    color: white;
+    display: none;
+    min-height: 300px;
+    padding: 2em;
+    position: fixed;
+    top: 10%;
+    left: calc(50% - 400px);
+    width: 800px;
+    z-index: 500;
+}
+
+#loginModal.dataModal {
+    background: white;
+    color: black;
+    font-size: 16px;
+    min-height: 0;
+    padding: 3em 1em;
+    text-align: center;
+    z-index: 1000;
+}
+
+#loginModal.dataModal a {
+    color: #2255cc;
+}
+
+div.image {
+    float: left;
+    margin-right: 4%;
+    max-width: 50%
+}
+
+div.image img {
+    max-width: 100%;
+}
+
+.dataModal h2 {
+    font-size: 28px;
+}
+
+.dataModal td {
+    border: 1px solid white;
+    padding: 1em;
+}
+
+.dataModal .mainColumn {
+    float: left;
+    width: 40%;
+}
+
+.dataModal table.audioFeatures {
+    font-size: 14px;
+    float: left;
+    margin: 0 2%;
+    width: 25%;
+}
+
+.dataModal .audioFeatures td {
+    padding: .5em 1em;
+}
+
+.dataModal .audioFeatures .tdhead {
+    font-weight: bold;
+}
+
+.dataModal td:first-child {
+    width: 35%;
+}
+
+.dataModal .audioFeatures td:last-child {
+    width: 20%;
+}
+
+.dataModal a {
+    color: white;
+}
+
+.dataModal .playbtn {
+    background-color: #2ebd59;
+    border-radius: 500px;
+    color: #fff;
+    display: inline-block;
+    margin: 1em 0 0 -2px;
+    padding: .5em 1em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.dataModal .playbtn:hover {
+    background-color: #1ed760;
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03);
+}
+
+@media screen and (max-width: 700px) {
+    #wrapper {
+        padding-top: 0;
+    }
+    .column,
+    #column1,
+    #column2 {
+        float: none;
+        width: 100%;
+    }
+    /* Menu */
+    .tabs li {
+        float: none;
+        margin: 0;
+    }
+    .tabs li a {
+        background: #222;
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 0;
+        border-color: white;
+        border-radius: 0;
+        color: white;
+        margin: 0 -20px 0;
+        padding: .7em 20px;
+    }
+    .tabs li a.active {
+        background: #666;
+        border-bottom: 0;
+    }
+    #audioFeaturesPopUp,
+    #artistDataPopUp {
+        position: fixed !important;
+        left: 50% !important;
+        margin-left: -150px;
+        top: 10% !important;
+    }
+    .loginPage {
+        margin-top: 0;
+        padding-top: 0;
+    }
+    a.loginBtn {
+        font-size: 18px;
+    }
+    .userName.loggedOut,
+    #averageTop,
+    #averagePlaylist,
+    .showHideStats>span:first-child,
+    .faqLink {
+        display: none;
+    }
+    .showHideStats {
+        float: right;
+    }
+    .showHideStats>span:last-child {
+        display: block;
+    }
+}

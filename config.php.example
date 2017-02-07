@@ -1,0 +1,11 @@
+<?php 
+
+//Set your values for the vars, and rename file to: "config.php"
+
+$clientId = "Your clientId";
+$clientSecret = "Your clientSecret";
+$clientString = "Your clientString";
+$clientStringB64 = "Your clientString B64 encoded";
+$redirectUri = urlencode("path-to-server"); 
+
+?>
