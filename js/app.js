@@ -24,6 +24,9 @@ app.service('GetSpotifyData', function($http, SpinnerService) {
     return {
         getData: function(type, param1, param2, param3) {
             SpinnerService.setSpinner();
+            if (type == "audiofeatures") {
+                params = { 'trackids': param1 };
+            }
             if (type == "search") {
                 params = { 'query': param1, 'offset': param2 };
             }
@@ -39,20 +42,6 @@ app.service('GetSpotifyData', function($http, SpinnerService) {
             return $http({
                 method: 'GET',
                 params: params,
-                url: 'ajax.php'
-            })
-
-        }
-    };
-});
-
-
-app.service('GetAudioFeatures', function($http) {
-    return {
-        getData: function(trackids) {
-            return $http({
-                method: 'GET',
-                params: { trackids: trackids },
                 url: 'ajax.php'
             })
 
@@ -204,7 +193,7 @@ app.directive('playlistsBox', function() {
             userObj: '<'
         },
         templateUrl: 'js/playlists.html',
-        controller: function($scope, GetSpotifyData, GetAudioFeatures, MergeObjects, SortData, SpinnerService) {
+        controller: function($scope, GetSpotifyData, MergeObjects, SortData, SpinnerService) {
             /* Getting playlist tracks based on listid */
             $scope.callGetSpotifyData = function(offset, listid, listname) {
                 $scope.offset = offset;
@@ -229,7 +218,7 @@ app.directive('playlistsBox', function() {
                         tracksObjNew.push(value.track); // Getting trackObjects ready to merge			
                     });
 
-                    GetAudioFeatures.getData(trackids).then(function(response) { // Getting Audio Features with track ids
+                    GetSpotifyData.getData("audiofeatures", trackids).then(function(response) { // Getting Audio Features with track ids
                         auFeatObj = response.data.audio_features;
                         $scope.tracks = MergeObjects.merge(tracksObjNew, auFeatObj); //Sending objects to extend service to get tracks and audio features merged
                         SpinnerService.closeSpinner();
@@ -272,7 +261,7 @@ app.directive('top50Box', function() {
             callGetArtistData: '&'
         },
         templateUrl: 'js/top50.html',
-        controller: function($scope, GetSpotifyData, GetAudioFeatures, MergeObjects, SortData, SpinnerService) {
+        controller: function($scope, GetSpotifyData, MergeObjects, SortData, SpinnerService) {
             if (!$scope.top50type) {
                 $scope.top50type = 'toptracks';
             }
@@ -293,7 +282,7 @@ app.directive('top50Box', function() {
                         angular.forEach(tracksObj, function(value, key) { //	Getting track ids
                             trackids = trackids + value.id + ',';
                         });
-                        GetAudioFeatures.getData(trackids).then(function(response) {
+                        GetSpotifyData.getData("audiofeatures", trackids).then(function(response) {
                             auFeatObj = response.data.audio_features;
                             $scope.tracks = MergeObjects.merge(tracksObj, auFeatObj); //Sending objects to extend service to get toptraks merged		
                             SpinnerService.closeSpinner();
@@ -337,7 +326,7 @@ app.directive('searchBox', function() {
             callGetArtistData: '&'
         },
         templateUrl: 'js/search.html',
-        controller: function($scope, GetSpotifyData, GetAudioFeatures, MergeObjects, SortData, SpinnerService) {
+        controller: function($scope, GetSpotifyData, MergeObjects, SortData, SpinnerService) {
             /* Getting search result */
             $scope.callGetSpotifyData = function(query, offset) {
                 if (typeof offset == "undefined" || offset > -1) { //checking if offset is NOT negative to prevent negative paging
@@ -350,7 +339,7 @@ app.directive('searchBox', function() {
                         angular.forEach(tracksObj, function(value, key) { //	Getting track ids
                             trackids = trackids + value.id + ',';
                         });
-                        GetAudioFeatures.getData(trackids).then(function(response) {
+                        GetSpotifyData.getData("audiofeatures", trackids).then(function(response) {
                             auFeatObj = response.data.audio_features;
                             $scope.tracks = MergeObjects.merge(tracksObj, auFeatObj); //Sending objects to extend service to get toptraks merged
                             SpinnerService.closeSpinner();
