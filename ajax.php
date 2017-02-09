@@ -6,42 +6,6 @@
 	  $accessToken = ($_SESSION['accessToken']);
 	}
 	
-	/* Setting current page in session */
-	/*
-	if(isset($_GET["page"])){
-		$page= $_GET["page"];
-		$_SESSION["page"] = $page;
-	}*/
-	
-	/*
-	if(isset($_SESSION["query"])){
-		$prevQuery = $_SESSION["query"];
-	}else{
-		$prevQuery ="";
-	}*/
-	
-	/*
-	if(isset($_SESSION["searchurl"])){
-		$prevSearchUrl = $_SESSION["searchurl"];
-	}else{
-		$prevSearchUrl ="";
-	}*/
-	
-	/*
-	if(isset($_SESSION["searchresult"])){
-		$prevResultSearch = $_SESSION["searchresult"];
-	}*/
-	
-	/*
-	if(isset($_SESSION["resultlisttracks"])){
-		$prevResultListTracks = $_SESSION["resultlisttracks"];
-	}
-	if(isset($_SESSION["urllisttracks"])){
-		$prevUrlListTracks = $_SESSION["urllisttracks"];
-	}else{
-		$prevUrlListTracks = "";
-	}*/
-	
 	/* Getting top 50 tracks or artists */
 	if (isset($_GET["toptype"])){
 		if (isset($_GET["toptype"])){
@@ -115,16 +79,7 @@
 		
 		$resultListTracks = @file_get_contents($urlListTracks,false,$context);	
 		echo $resultListTracks;	
-		
-		/*
-		if($prevUrlListTracks == $urlListTracks){
-			echo $prevResultListTracks;
-		}else{
-			$resultListTracks = @file_get_contents($urlListTracks,false,$context);	
-			$_SESSION["resultlisttracks"] = $resultListTracks;
-			$_SESSION["urllisttracks"] = $urlListTracks;
-			echo $resultListTracks;	
-		}*/			
+				
 		
 	}
 	
@@ -148,32 +103,6 @@
 		
 		echo $resultArtistData;			
 	} 
-		
-			
-	
-	/* Getting audio features from Spotify */
-/*	
-	if(isset($_GET["trackid"])){	
-		$trackId = $_GET["trackid"];
-
-		
-		$options = array(
-		  'http'=>array(
-			'method'=>"GET",
-			'header'=>"Authorization: Bearer " . $accessToken . "\r\n"
-		  )
-		);
-		
-		// Create a stream
-		$context = stream_context_create($options);	
-
-		// Open the file using the HTTP headers set above		
-		$urlAudioFeatures = "https://api.spotify.com/v1/audio-features/". $trackId;  
-		$resultAudioFeatures = @file_get_contents($urlAudioFeatures,false,$context);
-		
-		echo $resultAudioFeatures;			
-	} 
-*/
 		
 	
 	/* Getting audio features for multiple ID's */		
@@ -232,21 +161,7 @@
 		$resultSearch = @file_get_contents($urlSearch,false,$context);
 		echo $resultSearch;
 		
-		
-		/* Checking if its a repeated search
-		if($prevQuery == $query || $prevSearchUrl == $urlSearch){ // If query og next/prev-url is repeated the previuos searchResult is returned	
-			echo $prevResultSearch;	
-		}else{
-			$resultSearch = @file_get_contents($urlSearch,false,$context);
-			$_SESSION["searchresult"] = $resultSearch;
-			echo $resultSearch;
-		}
-		*/
-		
-		//echo $resultSearch;
-		//var_dump($sameSearchError);
-		//var_dump(json_decode($sameSearchError, true));
-		//echo $urlSearch;
+
 		//var_dump($resultSearch);
 		//var_dump(json_decode($resultSearch, true));
 	}	
