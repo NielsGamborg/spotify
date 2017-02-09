@@ -1,11 +1,6 @@
 <?php
-// Start the session
-session_start();
 
-// App name: spotify test
-// App description: a test of the spotify API
-//Client ID: 9e8cd001ead7439e8350c3195dc20add
-//Client Secret: 504d73b1b6be44bf84fc7b37ec135494
+session_start();
 
 include 'config.php';
 
