@@ -26,7 +26,7 @@
         <tbody>
             <tr ng-repeat="item in topartists | orderBy:propertyName:reverse">
                 <td>{{ item.staticIndex + 1 }}</td>
-                <td class='artistName' ng-click="callGetArtistData({artistid : item.id})"><a>{{ item.name }}</a></td>
+                <td class='artistName' ng-click="showArtistModal(item.id)"><a>{{ item.name }}</a></td>
                 <td>{{ item.followers.total }}</td>
                 <td>{{ item.popularity }}</td>
                 <td class="genreColumn"><span ng-repeat="item in item.genres" class="genreTag">{{ item }}<span ng-if="!$last">,</span></span>
@@ -35,6 +35,44 @@
         </tbody>
     </table>
 
-    <!-- Including tracks table html -->
-    <div ng-if="top50type == 'toptracks'" ng-include="'js/trackstable.html'"></div>
+    <!-- Artist modal -->
+    <div id="artistModal" class="dataModal">
+        <div class="hidePopUp" ng-click="closeModal()">×</div>
+        <h2>{{ artistsdata.name }}</h2>
+
+        <div class="image"><img src="{{ artistsdata.images[1].url}} " alt="artist photo" /></div>
+
+        <table ng-class="{'show' : toggleData}">
+            <thead>
+                <tr>
+                    <th colspan="2">{{ artistsdata.name }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Popularity</td>
+                    <td>{{ artistsdata.popularity }}%</td>
+                </tr>
+                <tr>
+                    <td>Followers</td>
+                    <td>{{ artistsdata.followers.total | number : fractionSize }}</td>
+                </tr>
+                <tr>
+                    <td>Genres</td>
+                    <td><span class="genreTag" ng-repeat="genre in artistsdata.genres">{{ genre }}<span ng-if="!$last">,</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Spotify link</td>
+                    <td><a href="{{ artistsdata.external_urls.spotify }}">{{ artistsdata.name }}</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- Including tracks table directive -->
+    <div ng-if="top50type == 'toptracks'">
+        <tracks-table-box tracks="tracks"></tracks-table-box>
+    </div>
 </div>

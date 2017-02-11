@@ -18,7 +18,9 @@
         <p>Open your Spotify app on your favorite device, and make your playlists public from there.</p>
     </div>
 
-    <!-- Getting the tracks table -->
-    <div ng-if="tracks" ng-include="'js/trackstable.html'"></div>
+    <!-- Getting the tracks table directive -->
+    <div ng-if="tracks">
+        <tracks-table-box tracks="tracks"></tracks-table-box>
+    </div>
 
 </div>

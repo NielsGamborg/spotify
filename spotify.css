@@ -685,6 +685,17 @@ div.image img {
     font-size: 28px;
 }
 
+#content .dataModal table {
+    width: 45%;
+}
+
+#content .dataModal th {
+    background: transparent;
+    border: 1px solid white;
+    font-weight: bold;
+    text-align: center;
+}
+
 .dataModal td {
     border: 1px solid white;
     padding: 1em;
@@ -695,11 +706,16 @@ div.image img {
     width: 40%;
 }
 
-.dataModal table.audioFeatures {
+#content .dataModal table.audioFeatures {
     font-size: 14px;
     float: left;
     margin: 0 2%;
     width: 25%;
+}
+
+#content .dataModal tr,
+#content .dataModal tr:nth-child(2n) {
+    background: black;
 }
 
 .dataModal .audioFeatures td {
@@ -718,7 +734,7 @@ div.image img {
     width: 20%;
 }
 
-.dataModal a {
+#content .dataModal a {
     color: white;
 }
 

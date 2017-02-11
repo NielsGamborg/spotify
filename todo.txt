@@ -1,0 +1,3 @@
+TODO
+
+Artist Modal bliver gentaget i HTML'en

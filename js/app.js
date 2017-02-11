@@ -3,13 +3,13 @@ var app = angular.module('spotify', ['ngRoute']);
 app.config(['$routeProvider', function($routeprovider) {
     $routeprovider
         .when('/top50', {
-            template: '<top50-box show-track-data="showTrackData(trackid,tracks)" call-get-artist-data="callGetArtistData(artistid)"></top50-box>'
+            template: '<top50-box ></top50-box>'
         })
         .when('/playlists', {
-            template: '<playlists-box user-lists="userLists" user-obj="userObj" show-track-data="showTrackData(trackid,tracks)" call-get-artist-data="callGetArtistData(artistid)"></playlists-box>'
+            template: '<playlists-box user-lists="userLists" user-obj="userObj"></playlists-box>'
         })
         .when('/search', {
-            template: '<search-box show-track-data="showTrackData(trackid,tracks)" call-get-artist-data="callGetArtistData(artistid)"></search-box>'
+            template: '<search-box ></search-box>'
         })
         .when('/', {
             redirectTo: '/top50'
@@ -130,38 +130,16 @@ app.directive('spotifyWrapper', function() {
             });
         },
         controller: function($scope, $timeout, GetSpotifyData, SpinnerService) {
-            /* Getting track data out of the trackobjects to show in modal*/
-            $scope.showTrackData = function(trackid, tracks) {
-                SpinnerService.setSpinner();
-                angular.forEach(tracks, function(value, key) {
-                    if (trackid == value.id) {
-                        $scope.track = value
-                    }
-                });
-                SpinnerService.openModal("#trackModal");
-                console.log("$scope.track", $scope.track);
-            }
-
-            /* Getting artist data on click to show in modal*/
-            $scope.callGetArtistData = function(artistid) {
-                SpinnerService.setSpinner();
-                GetSpotifyData.getData("artist", artistid).then(function(response) {
-                    $scope.artistsdata = response.data;
-                    SpinnerService.openModal("#artistModal");
-                }, function errorCallback(response) {
-                    console.log("Error");
-                });
-            }
-
-            /* Modal close etc*/
-            $scope.closeModal = function() {
-                SpinnerService.closeModal();
-            }
 
             /* Menu */
             $scope.menu = function(page) {
                 angular.element('#showtop50,#showplaylists,#showsearch').removeClass('active');
                 angular.element('#' + page).addClass('active');
+            }
+
+            /* Modal close */
+            $scope.closeModal = function() {
+                SpinnerService.closeModal();
             }
 
             /* Watching the when accesstoken runs out */
@@ -187,8 +165,6 @@ app.directive('playlistsBox', function() {
     return {
         restrict: 'E',
         scope: {
-            callGetArtistData: '&',
-            showTrackData: '&',
             userLists: '<',
             userObj: '<'
         },
@@ -235,18 +211,6 @@ app.directive('playlistsBox', function() {
             if ($scope.userLists.length > 0) {
                 $scope.callGetSpotifyData(0, $scope.userLists[0].id, $scope.userLists[0].name); // Calling function on load with user first playlist id and name
             }
-
-
-
-            /* Sorting */
-            $scope.propertyName = "";
-            $scope.reverse = false;
-            $scope.callSortBy = function(property) {
-                $scope.sortData = SortData.getSortParams($scope.propertyName, property, $scope.reverse);
-                $scope.propertyName = $scope.sortData[0].sortProperty;
-                $scope.reverse = $scope.sortData[0].reverse;
-            }
-
         }
     }
 });
@@ -256,10 +220,7 @@ app.directive('playlistsBox', function() {
 app.directive('top50Box', function() {
     return {
         restrict: 'E',
-        scope: {
-            showTrackData: '&',
-            callGetArtistData: '&'
-        },
+        scope: {},
         templateUrl: 'js/top50.html',
         controller: function($scope, GetSpotifyData, MergeObjects, SortData, SpinnerService) {
             if (!$scope.top50type) {
@@ -304,6 +265,22 @@ app.directive('top50Box', function() {
             }
             $scope.callGetSpotifyData($scope.top50type);
 
+            /* Show Artist Modal */
+            $scope.showArtistModal = function(artistid) {
+                SpinnerService.setSpinner();
+                angular.forEach($scope.topartists, function(value, key) {
+                    if (artistid == value.id) {
+                        $scope.artistsdata = value;
+                    }
+                });
+                SpinnerService.openModal("#artistModal");
+            }
+
+            /* Modal close */
+            $scope.closeModal = function() {
+                SpinnerService.closeModal();
+            }
+
             /* Sorting */
             $scope.propertyName = "";
             $scope.reverse = false;
@@ -321,10 +298,7 @@ app.directive('top50Box', function() {
 app.directive('searchBox', function() {
     return {
         restrict: 'E',
-        scope: {
-            showTrackData: '&',
-            callGetArtistData: '&'
-        },
+        scope: {},
         templateUrl: 'js/search.html',
         controller: function($scope, GetSpotifyData, MergeObjects, SortData, SpinnerService) {
             /* Getting search result */
@@ -351,8 +325,46 @@ app.directive('searchBox', function() {
                     });
                 }
             }
+        }
+    }
+});
 
-            /* Sorting */
+app.directive('tracksTableBox', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            tracks: '<'
+        },
+        templateUrl: 'js/trackstable.html',
+        controller: function($scope, SortData, SpinnerService, GetSpotifyData) {
+
+            /* Show Track Modal */
+            $scope.showTrackModal = function(trackid, tracks) {
+                SpinnerService.setSpinner();
+                angular.forEach(tracks, function(value, key) {
+                    if (trackid == value.id) {
+                        $scope.track = value;
+                    }
+                });
+                SpinnerService.openModal("#trackModal");
+            }
+
+            /* Show Artist Modal */
+            $scope.showArtistModal = function(artistid) {
+                GetSpotifyData.getData("artist", artistid).then(function(response) {
+                    $scope.artistsdata = response.data;
+                    SpinnerService.openModal("#artistModal");
+                }, function errorCallback(response) {
+                    console.log("Error");
+                })
+            }
+
+            /* Modal close */
+            $scope.closeModal = function() {
+                SpinnerService.closeModal();
+            }
+
+            /* Sorting the table */
             $scope.propertyName = "";
             $scope.reverse = false;
             $scope.callSortBy = function(property) {
@@ -360,8 +372,6 @@ app.directive('searchBox', function() {
                 $scope.propertyName = $scope.sortData[0].sortProperty;
                 $scope.reverse = $scope.sortData[0].reverse;
             }
-
-
         }
     }
 });

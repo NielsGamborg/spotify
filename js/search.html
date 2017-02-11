@@ -20,9 +20,8 @@
         </div>
 
 
-
-        <!-- Getting track table HTML -->
-        <div ng-include="'js/trackstable.html'"></div>
+        <!-- Getting track table directive -->
+        <tracks-table-box tracks="tracks"></tracks-table-box>
 
 
         <div ng-if="totalResults > 20" class="searhResPaging" id="searhResPagingBottom">
