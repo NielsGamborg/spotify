@@ -180,7 +180,7 @@ app.directive('playlistsBox', function() {
                     $scope.playlistName = listname;
                 }
                 if (!offset) {
-                    index = 0;
+                    index = 0; //Setting index for static number count in tables
                 } else {
                     index = offset / 100;
                 }
