@@ -1,3 +1,4 @@
 TODO
 
-Artist Modal bliver gentaget i HTML'en
+Artist Modal bliver gentaget i HTML'en i top 50
+Medfører trælds id sammenfald der er hacket med en 'artistModal2' navngivning
