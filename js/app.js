@@ -273,7 +273,7 @@ app.directive('top50Box', function() {
                         $scope.artistsdata = value;
                     }
                 });
-                SpinnerService.openModal("#artistModal");
+                SpinnerService.openModal("#artistModal2");
             }
 
             /* Modal close */
