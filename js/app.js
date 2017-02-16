@@ -333,7 +333,8 @@ app.directive('tracksTableBox', function() {
     return {
         restrict: 'E',
         scope: {
-            tracks: '<'
+            tracks: '<',
+            offset: '@'
         },
         templateUrl: 'js/trackstable.html',
         controller: function($scope, SortData, SpinnerService, GetSpotifyData) {

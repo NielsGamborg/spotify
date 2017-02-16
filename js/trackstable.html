@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="item in tracks | orderBy:propertyName:reverse">
-            <td>{{ item.staticIndex + 1 + offset }}</td>
+            <td>{{ item.staticIndex + 1 + (offset/1) }}</td>
             <td><a ng-click="showTrackModal(item.id, tracks)" href="">{{ item.name }}</a></td>
             <td>
                 <span ng-repeat="artist in item.artists">
@@ -36,13 +36,13 @@
 <div id="trackModal" class="dataModal">
     <div class="hidePopUp" ng-click="closeModal()">×</div>
     <h2>{{ track.name }}</h2>
-    <h3>Album: {{ track.album.name }}</h3>
+    <p>Album: {{ track.album.name }}</p>
     <div class="mainColumn">
         <img src="{{ track.album.images[1].url }}" alt="Album Cover" />
-        <h3>
+        <p>
             <span ng-repeat="artist in track.artists">{{ artist.name }}<span ng-if="!$last">,</span>
             </span>
-        </h3>
+        </p>
         <p>
             <a href="https://open.spotify.com/track/{{ track.id }}" class="playbtn" target="_blank">Play on Spotify</a>
         </p>
