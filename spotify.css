@@ -119,7 +119,7 @@ table {
 }
 
 #content td {
-    border-right: 1px solid #eee;
+    border-right: 1px solid #dce3e3;
 }
 
 #content .genreColumn {
@@ -691,17 +691,17 @@ div.image img {
 
 #content .dataModal th {
     background: transparent;
-    border: 1px solid white;
+    border: 1px solid #666;
     font-weight: bold;
     text-align: center;
 }
 
-.dataModal td {
-    border: 1px solid white;
+#content .dataModal td {
+    border: 1px solid #666;
     padding: 1em;
 }
 
-.dataModal .mainColumn {
+#content .dataModal .mainColumn {
     float: left;
     width: 40%;
 }
@@ -743,6 +743,7 @@ div.image img {
     border-radius: 500px;
     color: #fff;
     display: inline-block;
+    font-size: 0.9em;
     margin: 1em 0 0 -2px;
     padding: .5em 1em;
     text-decoration: none;
